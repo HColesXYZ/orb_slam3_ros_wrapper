@@ -96,7 +96,9 @@ The following topics are published by each node:
 
 # XYZ Instructions
 
+Tested with ORB-SLAM3 V1.0, Ubuntu 20.04, OpenCV 4.2.0
 ** I did not test the authors forked version of ORB SLAM3
+
 - First you will need to set `ORB_SLAM3_DIR` in the cmake file
 - Next you will need to change `voc_file` in `rs_d455_stereo_inertial.launch` to point to the VOC file in your version of ORBSLAM3
 
