@@ -92,3 +92,25 @@ The following topics are published by each node:
 # Params
 - Enable / disable pangolin viewer: `enable_pangolin`
 - For monocular/stereo case, use `world_roll`, `world_pitch`, `world_yaw` in the launch file to rotate the world frame if necessary (otherwise the first KF will be the world frame). The world frame will be rotated by the provided roll-pitch-yaw angles (in rad) in that order.
+
+
+# XYZ Instructions
+
+** I did not test the authors forked version of ORB SLAM3
+- First you will need to set `ORB_SLAM3_DIR` in the cmake file
+- Next you will need to change `voc_file` in `rs_d455_stereo_inertial.launch` to point to the VOC file in your version of ORBSLAM3
+
+Once Everything is built you can run the Boron node. I will demo how to do this with  the bag 29-01-24_Boron_G02_test.bag
+
+- Navigate to wrapper root (the folder containing this file) and generate uniform IMU data.
+```
+python3 scripts/ProcessBoron.py bags/29-01-24_Boron_G02_test.bag bags/G02_imu.bag
+```
+- In one terminal launch the `orb_slam3_ros_wrapper` with `rs_d455_stereo_inertial`
+```
+roslaunch orb_slam3_ros_wrapper rs_d455_stereo_inertial.launch 
+```
+- In another terminal play the rosbag
+```
+rosbag play 29-01-24_Boron_G02_test.bag G02_imu.bag 
+```

@@ -1,0 +1,112 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "KannalaBrandt8"
+
+# Camera 1 / Infrared 1
+# intrinsics
+Camera1.fx: 635.2712780472943
+Camera1.fy: 635.424944464313
+Camera1.cx: 638.657647234694
+Camera1.cy: 357.08183113911565
+# distortion_coeffs
+Camera1.k1: 0.3141227550509328
+Camera1.k2: 0.2678589373210881
+Camera1.k3: -0.3131925645979139
+Camera1.k4: 0.3468921396671122
+
+# Camera 2 / Infrared 2
+# intrinsics
+Camera2.fx: 634.2700959609685
+Camera2.fy: 634.4519269332267
+Camera2.cx: 638.8761922777217
+Camera2.cy: 356.9099395676099
+# distortion_coeffs
+Camera2.k1: 0.3298650016230368
+Camera2.k2: 0.16756568021080767
+Camera2.k3: -0.0422221856570548
+Camera2.k4: 0.1029311928809695
+    
+# Transformation matrix from right camera to left camera
+Stereo.T_c1_c2: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: f
+  data: [0.999999999919569, 0.000010556174829, -0.000007030836973, 0.094949709847911,
+        0.000010556448134, 0.999999999188712, -0.000038873394669, 0.000013457395122,
+        0.000007030426613, 0.000038873468887, 0.999999999219715, 0.000254367705253,
+        0.0, 0.0, 0.0, 1.0]
+
+# Lapping area between images
+Camera1.overlappingBegin: 0
+Camera1.overlappingEnd: 1279
+
+Camera2.overlappingBegin: 0
+Camera2.overlappingEnd: 1279
+
+# Camera resolution
+Camera.width: 1280
+Camera.height: 720
+
+# Camera frames per second 
+Camera.fps: 30
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Close/Far threshold. Baseline times.
+Stereo.ThDepth: 40.0
+# Transformation from body-frame (imu) to left camera
+IMU.T_b_c1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [0.99977005304121955397, 0.021089491345524229266, -0.0038825760449284574045, -0.015691220558689572635,
+          0.021434151941454598149, -0.98825918727588045239, 0.15127576109663849071, -0.009771749272691366663,
+          -0.00064666259226265129119, -0.15132419542030831499,-0.98848397544314717296, -0.26058451808382384863,
+          0.0, 0.0, 0.0, 1.0]
+
+# IMU noise (Use those from VINS-mono)
+IMU.NoiseGyro: 1e-3 # 2.44e-4 #1e-3 # rad/s^0.5
+IMU.NoiseAcc: 1e-2 # 1.47e-3 #1e-2 # m/s^1.5
+IMU.GyroWalk: 1e-6 # rad/s^1.5
+IMU.AccWalk: 1e-4 # m/s^2.5
+IMU.Frequency: 100.0
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 1000 # Tested with 1250
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -3.5
+Viewer.ViewpointF: 500.0
