@@ -10,7 +10,7 @@ ORB_SLAM3::System::eSensor sensor_type;
 std::string world_frame_id, cam_frame_id, imu_frame_id;
 Sophus::SE3f Tc0w = Sophus::SE3f();
 
-ros::Publisher pose_pub, map_points_pub;
+ros::Publisher pose_pub, map_points_pub, state_pub;
 
 void setup_ros_publishers(ros::NodeHandle &node_handler, image_transport::ImageTransport &image_transport, Eigen::Vector3d rpy_rad)
 {
@@ -18,6 +18,8 @@ void setup_ros_publishers(ros::NodeHandle &node_handler, image_transport::ImageT
 
     map_points_pub = node_handler.advertise<sensor_msgs::PointCloud2>("orb_slam3/map_points", 1);
     
+    state_pub = node_handler.advertise<std_msgs::Header>("orb_slam3/state", 1);
+
     if (!rpy_rad.isZero(0))
     {
         Eigen::AngleAxisf AngleR(rpy_rad(0), Eigen::Vector3f::UnitX());
@@ -64,7 +66,14 @@ void publish_ros_tracked_mappoints(std::vector<ORB_SLAM3::MapPoint*> map_points,
     map_points_pub.publish(cloud);
 }
 
+void publish_ros_tracking_state(int state, ros::Time msg_time)
+{
+    std_msgs::Header state_msg;
+    state_msg.seq = state;
+    state_msg.stamp = msg_time;
 
+    state_pub.publish(state_msg);
+}
 //
 // Miscellaneous functions
 //
