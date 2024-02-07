@@ -112,7 +112,11 @@ python3 scripts/ProcessBoron.py bags/29-01-24_Boron_G02_test.bag bags/G02_imu.ba
 ```
 roslaunch orb_slam3_ros_wrapper rs_d455_stereo_inertial.launch 
 ```
-- In another terminal play the rosbag
+- In a second terminal play the rosbag
 ```
 rosbag play 29-01-24_Boron_G02_test.bag G02_imu.bag 
+```
+- In a third terminal record the runs pose & state
+```
+rosbag record -o g02 /orb_slam3/camera_pose /orb_slam3/state
 ```
